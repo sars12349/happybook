@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="device-width,initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+	<script src="js/jquery-2.1.0.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSnyMTQAIeclcmF-1y1ufEj3mzZb6sPx4" type="text/javascript"></script>
+	<script language="javascript"></script>
+
+	<script language="javascript">
+		 // 定義顯示 mappage 頁面時執行行 GetMap() 載入地圖和地標
+		$(function(){
+			$("#map").bind("pageshow",GetMap);// 載入地圖和地標
+		});
+
+		var curGeoPoint={lat:24.170566,lng:120.609932};
+		function GetGeo(lat,lng){
+			//取得目前定位
+			curGeoPoint.lat=lat;
+			curGeoPoint.lng=lng;
+			// mappage 的 pageshow 會呼叫 GetMap() 顯示地圖
+			$.mobile.changePage("#map","slide",false,true);
+			//GetMap(); // 也可以在此直接呼叫 GetMap() 顯示地圖
+			e.preventDefault();// 避免重複觸發
+		}
+
+		// 以該點為中心顯示地圖
+		function GetMap(){
+			// 設定地圖中心點
+			var map_div=document.getElementById("map_div");
+			// 取得經緯度
+			// var lat=24.170566;
+			// var lng=120.609932;
+				var latlng=new google.maps.LatLng(curGeoPoint.lat,curGeoPoint.lng);
+			var gmap=new google.maps.Map(map_div,{
+				zoom:14,
+				center:latlng,
+				mapTypeId:google.maps.MapTypeId.ROADMAP
+			
+			});	
+
+			// 建立地標，使用google.maps.Marker() 建立地標物件
+			var marker=new google.maps.Marker({
+				position:latlng,
+				icon:"image/1.png",
+				map:gmap,
+				title:" MY Company!!"
+			});
+			// 地標事件，以 google.maps.event.addListener()建立觸碰地標的事件
+			google.maps.event.addListener(marker,"click",function(event){
+				// google.maps.InfoWindow: 彈出的訊息視窗 infowindow.open(): 在google map 開啟訊息視窗
+				var infowindow=new google.maps.InfoWindow({
+					content:'<div class="info"><img src="http://www.ettvamerica.com/Images/JungleVoice/Video/Top.png" alt="" width="100%"><h4>聲林之王<h4><p>蕭敬騰、林宥嘉</p></div>'
+				});
+				infowindow.open(gmap,marker);
+			});
+
+		}
+	</script>
+
+
+	<style>
+		#map_div{
+			width: 300px;
+			height: 600px;
+			margin-top: 0;
+			margin-bottom: 0;
+			margin-left: auto;
+			margin-right: auto;
+			box-shadow: 2px 2px 2px 3px #ccc
+			/*background-color: white;*/
+		}
+		.info{
+			color:orange;
+		}
+
+	</style>
+</head>
+<body>
+	<div data-role="page" id="home">
+		<div data-role="header">			
+		</div>
+		<div data="main" class="ui-content">
+			<ul data-role="listview"" data-inset="true" data-theme="c">
+				<li data-role="list-divider">Attractions</li>
+				<li><a href="javascript:GetGeo(24.170566,120.609932)">CVTC</a></li>
+				<li><a href="javascript:GetGeo(25.033773,121.564787)">Taipei 101</a></li>
+				<li><a href="javascript:GetGeo(25.102398,121.548613)">National Palace Museum</a></li>	
+				<li><a href="javascript:GetGeo(23.84932,120.929622)">Sun moon lake</a></li>	
+				<li><a href="javascript:GetGeo(21.949812,120.779816)">Kenting National Park</a></li>	
+			</ul>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li>
+						<a href="#home" class="ui-btn-active ui-state-persist" data-icon="home" data-theme="b">HOME</a>
+					</li>
+					<li>
+						<a href="#map" data-icon="gear" data-theme="b" >MAP</a>
+					</li>
+				</ul>
+			</div>		
+		</div>
+	</div>
+
+
+		
+	<div data-role="page" id="map" style="background-color:gray;">
+		<div data-role="header">
+			
+		</div>
+
+		<div data="main" class="ui-content">
+			<div class="map_div" id="map_div"></div>	
+		</div>
+
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li>
+						<a href="#home" class="ui-btn-active ui-state-persist" data-icon="home" data-theme="b">HOME</a>
+					</li>
+					<li>
+						<a href="#map" data-icon="gear" data-theme="b">MAP</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>	
+</body>
+</html>

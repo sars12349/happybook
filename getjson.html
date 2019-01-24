@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="device-width,initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+	<script src="js/jquery-2.1.0.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script>
+		$(document).ready(function(){
+
+			// $.get("http://192.168.60.121/get_food_opendata.php",function(data){
+			// 	alert(data[0].Coordinate);
+			// },"json");
+
+
+
+			$.ajax({
+				type:"GET",
+				url:"http://192.168.60.121/get_food_opendata.php",
+				dataType:"json",
+				success:showdata,
+				error:function(){
+					alert("系統錯誤!");
+				},
+			});
+
+			function showdata(data){
+				alert(data[0].Coordinate);
+				parray=data[0].Coordinate.split(",");//將資料分離，用","隔開，格式為陣列，訂一個陣列來儲存
+				alert(parray[0]);
+				alert(parray[1]);
+			}
+
+		});
+	</script>
+</head>
+<body>
+	<div data-role="page" id="home">
+		<div data-role="header">
+			
+		</div>
+
+		<div data="main" class="ui-content">
+			
+		</div>
+
+		<div data-role="footer" data-position="fixed">
+			
+		</div>
+	</div>	
+</body>
+</html>

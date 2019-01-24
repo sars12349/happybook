@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="device-width,initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+	<script src="js/jquery-2.1.0.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script>
+		var book_id=0;
+
+		function get_book_info(mode)
+		{
+			$.get("get_book_info.php",{book_id:book_id,mode:mode},function(data){
+				book_id=data.book_id;
+				$("#bookimg").attr("src","image/"+data.image_name);
+				$("#bookmsg").html(data.description);
+			},"json");
+		}
+	</script>
+</head>
+<body>
+	<div data-role="page" id="home">
+		<div data-role="header">
+			<h3>行動商品型錄</h3>
+		</div>
+
+		<div data="main" class="ui-content">
+			<img src="http://fakeimg.pl/350x200/00CED1/FFF/?text=img+placeholder" width="100%">
+
+			<a href="#intro" data-role="button" data-icon="arrow-r" 
+			data-rel="dialog">快樂出版社簡介</a>
+			<a href="#book" data-role="button" data-icon="arrow-r">書籍介紹</a>
+
+		</div>
+
+		<div data-role="footer" data-position="fixed">
+			<h4>快樂出版社</h4>
+		</div>
+	</div>	
+
+	<!-- dialog 出版社簡介-->
+
+	<div data-role="page" id="intro">
+			<div data-role="header">
+				<h3>快樂出版社簡介</h3>
+			</div>
+	
+			<div data="main" class="ui-content">
+				自行轉貼如有營養一股最快身影就不事實臉色在他醫療參考儘管演出，至少家長元素焦點突破他，奇蹟每一個本站缺乏中，解釋心裡拿出一眼團隊品質想到幾次減少江蘇，搜狐大盤到處驚人麻煩如此您是詳細信息是在直到法院，通訊視頻建築名稱您的文化點頭不，最近主動聯繫人多麼本，演員背後空間監督以上予以一笑面前跟着綠色。
+			</div>
+	</div>	
+
+
+	<div data-role="page" id="book">
+			<div data-role="header">
+				<h4>書籍介紹</h4>
+			</div>
+	
+			<div data="main" class="ui-content">
+				<img src="image/ACL037300.jpg" id="bookimg" width="100%">
+				<p id="bookmsg"></p>
+			</div>
+	
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li>
+							<a href="#home" class="ui-btn-active ui-state-persist">回首頁</a>
+						</li>
+						<li>
+							<a href="javascript:get_book_info('prev')">上一個</a>
+						</li>
+						<li>
+							<a href="javascript:get_book_info('next')">下一個</a>
+						</li>
+					</ul>
+				</div>
+								
+			</div>
+	</div>	
+	
+	
+</body>
+</html>
