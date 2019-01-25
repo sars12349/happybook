@@ -10,13 +10,6 @@
 	<script src="js/jquery.mobile-1.4.5.min.js"></script>
 	<script>
 		$(document).ready(function(){
-
-			// $.get("http://192.168.60.121/get_food_opendata.php",function(data){
-			// 	alert(data[0].Coordinate);
-			// },"json");
-
-
-
 			$.ajax({
 				type:"GET",
 				url:"http://192.168.60.121/get_food_opendata.php",
@@ -33,7 +26,6 @@
 				alert(parray[0]);
 				alert(parray[1]);
 			}
-
 		});
 	</script>
 </head>

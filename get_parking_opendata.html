@@ -22,8 +22,12 @@
 				},
 			});
 
-			function showdata(data){
-				alert(data.length);
+			function showdata(data){	
+
+				// var arrayparking;
+				// arrayparking=JSON.stringify(data);			
+				alert(data.parkingLots[0].wgsX+"  "+data.parkingLots[0].wgsY);
+
 				//parray=data[0].Coordinate.split(",");//將資料分離，用","隔開，格式為陣列，訂一個陣列來儲存
 
 
@@ -74,8 +78,8 @@
 					// 	infowindow.open(gmap,marker);
 					// });
 					var marker=[];
-					for(i=0;i<data.length;i++){
-						latlng=new google.maps.LatLng(data[i].wgsX,data[i].wgsY);
+					for(i=0;i<data.parkingLots.length;i++){
+						latlng=new google.maps.LatLng(data.parkingLots[i].wgsY,data.parkingLots[i].wgsX);
 						marker[i]=new google.maps.Marker({
 							position:latlng,
 							icon:"image/1.png",
@@ -88,13 +92,17 @@
 							var lat=event.latLng.lat();
 							var lng=event.latLng.lng();
 
-							for(j=0;j<data.length;j++){
-								parray=data[j].Coordinate.split(",");
-								var disp=getDistance(lat,lng,data[j].wgsX,data[j].wgsY);//單位: 公里
+							for(j=0;j<data.parkingLots.length;j++){
+								// parray=data[j].Coordinate.split(",");
+								var disp=getDistance(lat,lng,data.parkingLots[j].wgsY,data.parkingLots[j].wgsX);//單位: 公里
 								if(disp<0.001){
 									var infowindow=new google.maps.InfoWindow({
-										content:'<img src="'+data[j].PicURL+'" width="100%"><p style="color:purple; text-align:center;;">'+data[j].Name+'</p>'
+										content:'<p style="text-align:center; color:orange;">'+data.parkingLots[j].areaName+'</p><BR><p style="color:purple; text-align:center;;">'+data.parkingLots[j].address+'</p>'
 									});
+									// 只能開啟一個視窗
+									if($('.gm-style-iw').length) {   
+						                 $('.gm-style-iw').parent().remove();   
+						             }
 									infowindow.open(gmap,marker[j]);
 								}//if
 								
