@@ -51,7 +51,7 @@
 				$("a",$("#list")).bind("click",function(){
 					getItem($(this).attr("regionTitle"),$(this).attr("hotel_name"),$(this).attr("hotel_addr"),$(this).attr("hotel_tel"))
 				});
-				$("#list").listview("refresh");				
+				$("#list").listview("refresh");
 			}//end function show()
 			function getItem(regionTitle,hotel_name,hotel_addr,hotel_tel){
 				console.log("regionTitle:"+regionTitle);
