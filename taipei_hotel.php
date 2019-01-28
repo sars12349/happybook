@@ -45,10 +45,19 @@
 						hotel_addr+=regionData[i][j]["display_addr"]+"|";
 						hotel_tel+=regionData[i][j]["tel"]+"|";
 					}					
-					strHtml='<li data-icon="home"><a href="#" hotel_name="'+hotel_name+'" hotel_addr="'+hotel_addr+'" hotel_tel="'+hotel_tel+'">'+regionTitle[i]+'旅館資料<span class="ui-li-count">'+regionData[i].length+'</span></a></li>';
+					strHtml='<li data-icon="home"><a href="#" regionTitle="'+regionTitle[i]+'" hotel_name="'+hotel_name+'" hotel_addr="'+hotel_addr+'" hotel_tel="'+hotel_tel+'">'+regionTitle[i]+'旅館資料<span class="ui-li-count">'+regionData[i].length+'</span></a></li>';
 					$("#list").append(strHtml);
 				}
+				$("a",$("#list")).bind("click",function(){
+					getItem($(this).attr("regionTitle"),$(this).attr("hotel_name"),$(this).attr("hotel_addr"),$(this).attr("hotel_tel"))
+				});
 				$("#list").listview("refresh");				
+			}//end function show()
+			function getItem(regionTitle,hotel_name,hotel_addr,hotel_tel){
+				console.log("regionTitle:"+regionTitle);
+				console.log("hotel_name:"+hotel_name);
+				console.log("hotel_addr:"+hotel_addr);
+				console.log("hotel_tel:"+hotel_tel);
 			}
 		});
 	</script>
